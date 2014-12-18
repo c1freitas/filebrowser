@@ -1,5 +1,7 @@
 /**
- * Returns an array of files and directories for a given path as a JSON object
+ * Returns an array of files and directories for a given path as a JSON object.
+ *
+ * TODO: Add walking child directories, and markers for is directory to the returned file object.
  */
 
 var fs = require('fs')
@@ -53,13 +55,18 @@ module.exports = function browse(root, dir, options){
 
 };
 
-
+/**
+ * Filter to remove hidden files (starts with a '.')
+ */
 function removeHidden(files) {
   return files.filter(function(file){
     return '.' != file[0];
   });
 }
 
+/**
+ * Allow for recusive directory walking
+ */
 function processFiles(path, files, cb) {
     var fileStats = [];
     async.each(files, function(file, callback){
@@ -75,6 +82,9 @@ function processFiles(path, files, cb) {
     } );
 }
 
+/**
+ * Create a file object to return
+ */
 function fileDetails( path, filename, fileStat ) {
     return { name: filename, path: path, size: fileStat.size };
 }
