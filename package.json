@@ -1,0 +1,26 @@
+{
+  "name": "filebrowser",
+  "version": "0.0.1",
+  "description": "Returns a JSON object representing the files in a given directory",
+  "main": "filebrowser.js",
+  "scripts": {
+    "test": "make test"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/c1freitas/filebrowser"
+  },
+  "author": "Chuck Freitas",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/c1freitas/filebrowser/issues"
+  },
+  "homepage": "https://github.com/c1freitas/filebrowser",
+  "devDependencies": {
+    "chai": "^1.10.0",
+    "mocha": "^2.0.1"
+  },
+  "dependencies": {
+    "async": "^0.9.0"
+  }
+}

@@ -1,0 +1,3 @@
+--require chai
+--reporter min
+--ui bdd
