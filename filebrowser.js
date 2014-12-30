@@ -1,7 +1,5 @@
 /**
  * Returns an array of files and directories for a given path as a JSON object.
- *
- * TODO: Add walking child directories, and markers for is directory to the returned file object.
  */
 
 var fs = require('fs')
@@ -38,11 +36,13 @@ module.exports = function browse(path, options, callback) {
             fs.stat(join(path, file), function(err, stat){
                 if (err && err.code !== 'ENOENT') return next(err);
                 if (stat.isDirectory()) {
+                    var dirDetails =  fileDetails(path, file, stat); 
                     browse(join(path, file), options, function(err, results) {
                         if (err) {
                           return next(err);
                         }
-                        fileResults = fileResults.concat(results);
+                        dirDetails.children = results;
+                        fileResults.push(dirDetails);
                         next();
                       });
                 } else {
@@ -83,5 +83,5 @@ function removeHidden(files) {
  * Create a file object to return
  */
 function fileDetails( path, filename, fileStat ) {
-    return { name: filename, path: path, size: fileStat.size };
+    return { name: filename, path: path, size: fileStat.size, isDirectory: fileStat.isDirectory() };
 }
